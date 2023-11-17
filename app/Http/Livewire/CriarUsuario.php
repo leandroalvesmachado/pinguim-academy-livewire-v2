@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
 use App\Rules\CustomRule;
 use Livewire\Component;
 
@@ -37,5 +38,11 @@ class CriarUsuario extends Component
         if ($this->name == 'Leandro') {
             $this->addError('name', 'Essa nome não é bom');
         }
+
+        User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => 'P@ssword',
+        ]);
     }
 }
