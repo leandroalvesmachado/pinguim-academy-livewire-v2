@@ -10,6 +10,7 @@ class CriarUsuario extends Component
 {
     public ?string $name = null;
     public ?string $email = null;
+    public bool $saving = false;
 
     // assim não funciona quando precisa utilizar uma regra personalizada, no caso a classe CustomRule
     // protected array $rules = [
@@ -32,6 +33,9 @@ class CriarUsuario extends Component
 
     public function save()
     {
+        $this->saving = true;
+        sleep(2);
+
         // utiliza as regras da variavel $rules
         $this->validate();
 
@@ -44,5 +48,8 @@ class CriarUsuario extends Component
             'email' => $this->email,
             'password' => 'P@ssword',
         ]);
+
+        $this->emit('user::created');
+        $this->reset('name', 'email');
     }
 }
